@@ -1,0 +1,14 @@
+<!-- Button Content For Basic Color Contrast Detection with Black/White Text Switch (see "Reporting Composite Widget" page in prototype)-->
+<div class="input-badge-button" *ngIf="!colorContrastObject.blackWhiteSwitch">
+        <span class="mx-2">{{colorContrastObject.formattedRatio}}</span>
+        <i class="fas fa-check-circle text-success" *ngIf="completePass() && !partialFailure()"></i>
+        <i *ngIf="partialFailure()" class="fas fa-exclamation-circle text-danger"></i>
+</div>
+
+<!-- Button Content For Color Contrast Detection with Black/White Text Switch (see "Nexus Branding Set" page in prototype)-->
+<div class="input-badge-button pe-0" *ngIf="colorContrastObject.blackWhiteSwitch">
+        <span class="mx-2">{{colorContrastObject.formattedRatio}}</span>
+        <i class="fas fa-check-circle text-success" *ngIf="completePass() && !partialFailure()"></i>
+        <i *ngIf="partialFailure()" class="fas fa-exclamation-circle text-danger"></i>
+        <span class="text-uppercase ms-1 py-1 px-1 add-text-switch" [style.border-bottom-color]="colorContrastObject.inputValue" [style.backgroundColor]="colorContrastObject.inputValue" [style.color]="colorContrastObject.contrastingTextColor">text</span>
+</div>

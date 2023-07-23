@@ -1,0 +1,124 @@
+<!-- Standard Color Input-->
+<div class="d-flex flex-row align-items-center" [formGroup]="form" *ngIf="regularColorInput">
+    <!-- THUMBNAIL -->
+    <app-thumbnail [regularThumbnail]="true" [small]="makeThumbnailSmall()" [validHex]="!colorInputObject.invalidHex" [inputValue]="colorInputObject.extractedHexValue"></app-thumbnail>
+
+    <div class="d-flex flex-column ml-3 position-relative" style="flex:auto">
+        <span *ngIf="isIdsVisible" class="annotated">ColorInput</span>
+        <mat-form-field appearance="outline">
+            <mat-label>{{ inputTitle }}</mat-label>
+            <input colorContrast [pattern]="colorContrastPattern" 
+                [userInputValue]="colorFormControl.value" (colorContrastDetector)="colorInputObjectEE($event)" [basicColorContrast]="colorFormControl.value" [bgColorFromComponent]="backgroundColor" type="text" matInput id="ColorInput" 
+                formControlName="colorFormControl" (focus)="addPrefix()"
+                (ngModelChange)="colorChange()" />
+                <mat-hint *ngIf="!colorFormControl.errors?.['pattern'] && !disabled">e.g: #6f389a</mat-hint>
+                <mat-error *ngIf="colorFormControl.errors?.['pattern']">Hex values must begin with a # and have 3 or 6 digits.</mat-error>
+
+            <!-- ACCESSIBILITY BADGE -->
+              <!-- Popup Button -->
+              <div #label *ngIf="!colorInputObject.invalidHex && addBadge">
+                <popup-button [popup]="colorContrastBandCContent" [canCopy]="false"  [label]="label" [customPopupButtonType]="'inputBadgeRight'" [customOverlayClass]="'w-75'">
+                    <input-badge-button [colorContrastObject]="colorInputObject"></input-badge-button>
+                </popup-button>
+            </div>
+            <!-- Popup Content -->
+            <ng-template #colorContrastBandCContent>
+                <popup-content [customPopupContentType]="'inputBadgeRight'">
+                    <input-badge-content class="p-3" [colorContrastObject]="colorInputObject"></input-badge-content>
+                </popup-content>
+            </ng-template>
+        </mat-form-field>
+    </div>
+</div>
+
+<!-- Slim Color Input (no badge)-->
+<div class="d-flex flex-row align-items-center" [formGroup]="form" *ngIf="slimColorInput">
+    <!-- THUMBNAIL -->
+    <app-thumbnail [regularThumbnail]="true" [small]="makeThumbnailSmall()" [validHex]="!colorInputObject.invalidHex" [inputValue]="colorInputObject.extractedHexValue"></app-thumbnail>
+
+    <div class="d-flex flex-column ml-3 position-relative" style="flex:auto">
+        <span *ngIf="isIdsVisible" class="annotated">ColorInput</span>
+        <mat-form-field appearance="outline">
+            <mat-label>{{ inputTitle }}</mat-label>
+            <input colorContrast [pattern]="colorContrastPattern" 
+                [userInputValue]="colorFormControl.value" (colorContrastDetector)="colorInputObjectEE($event)" [basicColorContrast]="colorFormControl.value" [bgColorFromComponent]="'#fff'" type="text" matInput id="ColorInput" 
+                formControlName="colorFormControl" (focus)="addPrefix()"
+                (ngModelChange)="colorChange()" />
+                <mat-hint *ngIf="!colorFormControl.errors?.['pattern'] && !disabled">e.g: #6f389a</mat-hint>
+                <mat-error *ngIf="colorFormControl.errors?.['pattern']">Hex values must begin with a # and have 3 or 6 digits.</mat-error>
+        </mat-form-field>
+    </div>
+</div>
+
+<!-- Color Contrast Input that Calculates Black vs White Text-->
+<div class="d-flex flex-row align-items-center" [formGroup]="form" *ngIf="blackWhiteColorInput">
+     <!-- THUMBNAIL -->
+     <app-thumbnail [regularThumbnail]="true" [small]="makeThumbnailSmall()" [validHex]="(colorFormControl.valid || colorFormControl.disabled) && (colorFormControl.value !== '')" [inputValue]="colorFormControl.value"></app-thumbnail>
+    <div class="d-flex flex-column ml-3 position-relative w-100">
+        <span *ngIf="isIdsVisible" class="annotated">ColorInput</span>
+        <mat-form-field appearance="outline">
+            <mat-label>{{ inputTitle }}</mat-label>
+            <input colorContrast [blackWhiteSwitch]="true" [pattern]="colorContrastPattern" 
+                (colorSwitchDetector)="colorSwitchEvntForColor1($event)" 
+                [userInputValue]="colorFormControl.value"  type="text" matInput id="ColorInput" 
+                formControlName="colorFormControl" (focus)="addPrefix()"
+                (ngModelChange)="colorChange()" />
+            <mat-hint>
+                <ng-container *ngIf="!colorBlackWhite.passForBlackAndWhite">e.g: #6f389a</ng-container>
+                <ng-container *ngIf="colorBlackWhite.passForBlackAndWhite">This color works against white text, too.</ng-container>
+            </mat-hint>
+            <mat-error *ngIf="colorFormControl.errors?.['pattern']">Hex values must begin with a # and have 3 or 6 digits.</mat-error>
+
+            <!-- ACCESSIBILITY BADGE -->
+            <div #label class="w-100" [style]="customButtonWrapperStyles" *ngIf="(colorFormControl.valid || colorFormControl.disabled) && (colorFormControl.value !== '')">
+                <popup-button [popup]="color1Popup" [canCopy]="false" [label]="label" [customPopupButtonType]="'inputBadgeFarRight'" [customOverlayClass]="'w-75'">
+                    <input-badge-button [colorContrastObject]="colorBlackWhite"></input-badge-button>
+                </popup-button>
+            </div>
+
+            <ng-template #color1Popup>
+                <popup-content>
+                    <input-badge-content class="p-3" [colorContrastObject]="colorBlackWhite"></input-badge-content>
+                </popup-content>
+            </ng-template>
+        </mat-form-field>
+    </div>
+</div>
+
+<!-- Opacity Color Input-->
+<div class="d-flex flex-row align-items-center" [formGroup]="form" *ngIf="opacityColorInput">
+    <!-- THUMBNAIL -->
+    <app-thumbnail [opacityThumbnail]="true" [small]="makeThumbnailSmall()" [validHex]="!receivedInputObject.invalidHex" [tonalColor]="receivedInputObject.extractedHexValue" [inputValue]="colorFormControl.value + '%'"></app-thumbnail>
+
+    <div class="d-flex flex-column ml-3 position-relative" style="flex:auto">
+        <span *ngIf="isIdsVisible" class="annotated">ColorInput</span>
+        <mat-form-field appearance="outline">
+            <mat-label>{{ inputTitle }}</mat-label>
+            <input colorContrast 
+                [userInputValue]="colorFormControl.value"
+                [pattern]="opacityColorPattern" (colorContrastDetector)="colorInputObjectEE($event)" [basicColorContrast]="colorFormControl.value" [bgColorFromComponent]="backgroundColor" type="text" matInput id="ColorOpacityInput" 
+                formControlName="colorFormControl" (focus)="addPrefix()"
+                [maxlength]="maxlengthOpacityChange()"
+                [minlength]="1"
+                (ngModelChange)="colorChange()" />
+                <mat-hint *ngIf="!colorFormControl.errors?.['pattern'] && !disabled">e.g: 33 %</mat-hint>
+                <mat-error *ngIf="colorFormControl.errors?.['pattern']">Opacity values range from 0% to 100%.</mat-error>
+
+            <!-- ACCESSIBILITY BADGE -->
+              <!-- Popup Button -->
+              <div #label *ngIf="!colorInputObject.invalidHex && addBadge">
+                <popup-button [popup]="colorContrastBandCContent" [canCopy]="false"  [label]="label" [customPopupButtonType]="'inputBadgeRight'" [customOverlayClass]="'w-auto'">
+                    <input-badge-button [colorContrastObject]="colorInputObject"></input-badge-button>
+                </popup-button>
+            </div>
+            <!-- Popup Content -->
+            <ng-template #colorContrastBandCContent>
+                <popup-content [customPopupContentType]="'inputBadgeRight'">
+                    <input-badge-content class="p-3" [colorContrastObject]="colorInputObject"></input-badge-content>
+                </popup-content>
+            </ng-template>
+
+            <span class="mx-3" *ngIf="addPercent" matSuffix>%</span>
+        </mat-form-field>
+    </div>
+</div>

@@ -1,0 +1,109 @@
+<!-- Input Badge Content for Basic Color Contente -->
+<ng-container *ngIf="!colorContrastObject.blackWhiteSwitch">
+    <div class="d-flex justify-content-between mb-3">
+        <div class="pe-2 me-2 w-50 border-right">
+            <p class="mb-2 mat-label-static-text">Foreground Color</p>
+            <div class="d-flex justify-content-between pt-2 pb-2 me-2">
+                <span class="color-badge-swatch"  [style.backgroundColor]="colorContrastObject.extractedHexValue"></span>
+                <span class="d-flex align-items-center text-uppercase">{{colorContrastObject.extractedHexValue}}</span>
+            </div>
+        </div>
+        <div class="w-50 ms-2">
+            <p class="mb-2 mat-label-static-text">Background Color</p>
+            <div class="d-flex justify-content-between pt-2 pb-2">
+                <span class="color-badge-swatch" [style.backgroundColor]="colorContrastObject.backgroundColor"></span>
+                <span class="d-flex align-items-center text-uppercase">{{colorContrastObject.backgroundColor}}</span>
+            </div>
+        </div>
+    </div>
+    <p class="mb-2 mat-label-static-text pt-3 border-top">Contrast Ratio</p>
+    <div class="color-contrast-ratio-container d-flex flex-column position-relative overflow-hidden">
+        <div class="ratio-sub-container" [ngClass]="{'bg-success-semitransparent text-success':completePass(), 
+        'bg-danger-semitransparent text-danger':completeFailure(), 
+        'warning':(!aaLargePass() && aaNormalPass()) || (aaLargePass() && !aaNormalPass())}">
+            <div class="ratio-text fw-bold">{{colorContrastObject.formattedRatio}}</div>
+            <div>
+                <span class="text-uppercase fw-bold d-block" *ngIf="completePass()">Pass</span>
+                <span class="text-uppercase fw-bold d-block" *ngIf="completeFailure()">Fail</span>
+                <span class="text-uppercase fw-bold d-block" *ngIf="(!aaLargePass() && aaNormalPass()) || (aaLargePass() && !aaNormalPass())">Partial Fail</span>
+            </div> 
+        </div>
+        <div class="pass-fail-analyzer">
+            <div [ngClass]="{'bg-success-semitransparent':(aaNormalPass()), 'bg-danger-semitransparent':(!aaNormalPass())}">
+                <p [ngClass]="{'text-success':(aaNormalPass()), 'text-danger':(!aaNormalPass())}" class="mb-0"><strong>AA Normal Text</strong></p>
+                <div>
+                    <i  class="fas fa-check-circle text-success" *ngIf="aaNormalPass()"></i>
+                    <i *ngIf="!aaNormalPass()" class="fas fa-exclamation-circle text-danger"></i>
+                </div>
+            </div>
+            <div [ngClass]="{'bg-success-semitransparent':(aaLargePass()), 'bg-danger-semitransparent':(!aaLargePass())}">
+                <p [ngClass]="{'text-success':(aaLargePass()), 'text-danger':(!aaLargePass())}"  class="mb-0"><strong>AA Large Text</strong></p>
+                <div>
+                    <i  class="fas fa-check-circle text-success" *ngIf="aaLargePass()"></i>
+                    <i *ngIf="!aaLargePass()" class="fas fa-exclamation-circle text-danger"></i>
+                </div>
+
+            </div>
+        </div>
+       
+            <p class="mt-3 mb-0">WCAG Level AA requires a color contrast ratio of at least 4.5:1 for normal text and 3:1 for large text (at least 18pt) or bold text.
+                <ng-container *ngIf="partialFailure()">Warning: Violation of the WCAG Color Contrast Ratio for Level AA may invalidate your client's accessibility standard.</ng-container>
+            </p>
+        
+    </div>
+</ng-container>
+
+<!-- Input Badge Content for Color Contrast Black and White -->
+<ng-container *ngIf="colorContrastObject.blackWhiteSwitch">
+    <div class="d-flex justify-content-between mb-3">
+        <div class="pe-2 me-2 w-50 border-right">
+            <p class="mb-2 mat-label-static-text">Brand Color</p>
+            <div class="d-flex justify-content-between pt-2 pb-2 me-2">
+                <span class="color-badge-swatch"  [style.backgroundColor]="colorContrastObject.extractedHexValue"></span>
+                <span class="d-flex align-items-center text-uppercase">{{colorContrastObject.extractedHexValue}}</span>
+            </div>
+        </div>
+        <div class="w-50 ms-2">
+            <p class="mb-2 mat-label-static-text">Text Color</p>
+            <div class="d-flex justify-content-between pt-2 pb-2">
+                <span class="color-badge-swatch" [style.backgroundColor]="colorContrastObject.contrastingTextColor"></span>
+                <span class="d-flex align-items-center text-uppercase">{{colorContrastObject.contrastingTextColor}}</span>
+            </div>
+        </div>
+    </div>
+    <p class="mb-2 mat-label-static-text pt-3 border-top">Contrast Ratio</p>
+    <div class="color-contrast-ratio-container d-flex flex-column position-relative overflow-hidden">
+        <div class="ratio-sub-container" [ngClass]="{'bg-success-semitransparent text-success':completePass(), 
+        'bg-danger-semitransparent text-danger':completeFailure(), 
+        'warning':(!aaLargePass() && aaNormalPass()) || (aaLargePass() && !aaNormalPass())}">
+            <div class="ratio-text fw-bold">{{colorContrastObject.formattedRatio}}</div>
+            <div>
+                <span class="text-uppercase fw-bold d-block" *ngIf="completePass()">Pass</span>
+                <span class="text-uppercase fw-bold d-block" *ngIf="completeFailure()">Fail</span>
+                <span class="text-uppercase fw-bold d-block" *ngIf="(!aaLargePass() && aaNormalPass()) || (aaLargePass() && !aaNormalPass())">Partial Fail</span>
+            </div> 
+        </div>
+        <div class="pass-fail-analyzer">
+            <div [ngClass]="{'bg-success-semitransparent':(aaNormalPass()), 'bg-danger-semitransparent':(!aaNormalPass())}">
+                <p [ngClass]="{'text-success':(aaNormalPass()), 'text-danger':(!aaNormalPass())}" class="mb-0"><strong>AA Normal Text</strong></p>
+                <div>
+                    <i  class="fas fa-check-circle text-success" *ngIf="aaNormalPass()"></i>
+                    <i *ngIf="!aaNormalPass()" class="fas fa-exclamation-circle text-danger"></i>
+                </div>
+            </div>
+            <div [ngClass]="{'bg-success-semitransparent':(aaLargePass()), 'bg-danger-semitransparent':(!aaLargePass())}">
+                <p [ngClass]="{'text-success':(aaLargePass()), 'text-danger':(!aaLargePass())}"  class="mb-0"><strong>AA Large Text</strong></p>
+                <div>
+                    <i  class="fas fa-check-circle text-success" *ngIf="aaLargePass()"></i>
+                    <i *ngIf="!aaLargePass()" class="fas fa-exclamation-circle text-danger"></i>
+                </div>
+
+            </div>
+        </div>
+       
+            <p class="mt-3 mb-0">WCAG Level AA requires a color contrast ratio of at least 4.5:1 for normal text and 3:1 for large text (at least 18pt) or bold text.
+                <ng-container *ngIf="partialFailure()">Warning: Violation of the WCAG Color Contrast Ratio for Level AA may invalidate your client's accessibility standard.</ng-container>
+            </p>
+        
+    </div>
+</ng-container>

@@ -1,0 +1,4 @@
+<!-- THUMBNAIL -->
+<div *ngIf="regularThumbnail" class="shadow-sm color-thumbnail me-3"  [ngClass]="{'color-thumbnail-sm': small, 'no-color': !validHex}" [style.backgroundColor]="inputValue"></div>
+
+<div *ngIf="opacityThumbnail" class="shadow-sm color-thumbnail me-3"  [ngClass]="{'color-thumbnail-sm': small,  'no-color': !validHex}" [style.backgroundColor]="tonalColor" [style.opacity]="validHex ? (inputValue) : null"></div>

@@ -1,0 +1,16 @@
+.color-thumbnail {
+    width:80px !important;
+    height:80px !important;
+    border-radius:40px;
+    border: 1px solid #D0D1E5;
+    &.color-thumbnail-sm {
+        width:55px !important;
+        height: 55px !important;
+    }
+}
+
+.no-color {
+    background-color: #e5e5f7;
+    opacity: 0.8;
+    background: repeating-linear-gradient( -45deg, #d0d1e5, #d0d1e5 2px, #e5e5f7 2px, #e5e5f7 10px );
+}

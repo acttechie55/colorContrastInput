@@ -1,0 +1,27 @@
+.button-cell {
+  color: rgba(0, 0, 0, 0.87);
+  padding: 0;
+  white-space: normal;
+  text-align: left;
+  font-size: 14px;
+  line-height: 1.5 !important;
+  letter-spacing: normal;
+  font-weight: 400;
+  background-color: transparent;
+  text-transform: none;
+}
+.copy-icon {
+  color: #808080; 
+  font-size: 120%; 
+  height: 16px; 
+  width: 16px;
+}
+.icon-background {
+  position: absolute; 
+  right: 5px; 
+  top: 5px;
+  padding: 4px 4px 0 4px; 
+  border-radius: 4px; 
+  z-index: 2;
+  cursor: pointer;
+}

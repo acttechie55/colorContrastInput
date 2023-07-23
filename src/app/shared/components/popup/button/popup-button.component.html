@@ -1,0 +1,37 @@
+<div [ngStyle]="buttonCategory !== 'colorContrast' ? {'position': 'relative'} : null " class="flex-grow-1" [ngSwitch]="buttonCategory">
+
+    <!--Icon and Text Only-->
+    <button id="1" *ngSwitchCase="'iconOnly'" [ngClass]="customCSS" [color]="buttonColor" mat-icon-button type="button" 
+        [attr.aria-label]="ariaLabel" [cdkCopyToClipboard]="value" (mouseenter)="show = true" (mouseleave)="show = false">
+        <div *ngIf="show && canCopy" class="shadow-sm bg-white icon-background">
+            <mat-icon class="copy-icon">content_copy</mat-icon>
+            <!--Click to copy-->
+        </div>
+        {{buttonText}}
+        <ng-content></ng-content>
+        <mat-icon class="material-icons-outlined">{{matIconName}}</mat-icon>
+    </button>
+
+    <!-- Input Badge-->
+    <button id="2" *ngSwitchCase="'inputBadgeFarRight' || 'inputBadgeRight'" [ngClass]="customCSS" [color]="buttonColor" mat-flat-button type="button" 
+    [attr.aria-label]="ariaLabel">
+    <ng-content></ng-content>
+    </button>
+
+    <!-- Icon Only -->
+    <button id="3" *ngSwitchCase="'iconNoCopy'" [color]="buttonColor" mat-icon-button type="button" [attr.aria-label]="ariaLabel">
+        <mat-icon  class="material-icons-outlined">info</mat-icon>
+    </button>
+
+    <!-- Text Only -->
+    <button id="4" *ngSwitchDefault [ngClass]="customCSS" [color]="buttonColor" mat-flat-button type="button" [style]="customStyles"
+        [attr.aria-label]="ariaLabel" [cdkCopyToClipboard]="value" (mouseenter)="show = true" (mouseleave)="show = false">
+        <div *ngIf="show && canCopy" class="shadow-sm bg-white icon-background">
+            <mat-icon class="copy-icon">content_copy</mat-icon>
+            <!--Click to copy-->
+        </div>
+        {{buttonText}}
+        <ng-content></ng-content>
+    </button>
+
+</div>

@@ -1,0 +1,59 @@
+.color-contrast-ratio-container {
+    .ratio-sub-container {
+      display: flex;
+      align-items:center;
+      justify-content: space-between;
+      padding:15px 20px;
+      border-top-left-radius: 10px;
+      border-top-right-radius: 10px;
+      margin-bottom:3px;
+    }
+    .pass-fail-analyzer {
+      display:flex;
+      > div {
+        padding:10px;
+        display: flex;
+        flex:50%;
+        justify-content: space-between;
+        &:first-child {
+          margin-right:3px;
+          border-bottom-left-radius: 10px;
+        }
+        &:last-child {
+         margin-right:0px;
+         border-bottom-right-radius: 10px;
+        }
+      }
+    }
+    .warning {
+      background-color: #ffefb1;
+    }
+}
+  
+  .mat-label-static-text {
+    font-size: inherit;
+    font-weight: 500;
+    line-height: 1.5;
+    font-family: "Barlow", sans-serif;
+    letter-spacing: normal;
+  }
+
+  .ratio-text {
+    font-size: 170%
+  }
+  .color-badge-swatch {
+    width: 50px; 
+    height:50px; 
+    border-radius:5px; 
+    border:1px solid #d8d8da
+  }
+
+.bg-white-semitransparent {
+  background-color: rgba(255,255,255,0.9) !important;
+}
+.bg-success-semitransparent {
+  background-color: rgba(30,123,52,0.15) !important;
+}
+.bg-danger-semitransparent {
+  background-color: rgba(204,0,0,0.15) !important;
+}
